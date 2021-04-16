@@ -3,7 +3,7 @@ import  mongoose from 'mongoose';
 import  cors from 'cors';
 import  { config } from 'dotenv';
 
-import postRoutes from './routes/photo.js';
+import postRoutes from './routes/reservationRouter.js';
 
 const app = express();
 const configuration = config();
@@ -16,7 +16,7 @@ app.use(express.json({
 
 app.use(express.urlencoded({
     limit: "30mb", 
-     extended: true
+    extended: true
 }));
 
 app.use(cors());
@@ -35,4 +35,4 @@ mongoose.set('useFindAndModify', false);
 
 
 //API ROUTES
-app.use('/api/photo', postRoutes); 
+app.use('/api/reservation', postRoutes); 

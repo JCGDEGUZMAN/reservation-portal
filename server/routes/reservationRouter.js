@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { list, store } from '../controllers/photo.js';
+import { list, store } from '../controllers/reservationController.js';
 
 const router = express.Router();
 
