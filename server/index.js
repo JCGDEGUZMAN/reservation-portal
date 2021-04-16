@@ -27,4 +27,8 @@ dbconnect
     .catch((error) => console.log(error.message))
 
 //API ROUTES
- app.use('/api', routes);
+app.get('/', (req, res) => {
+    res.send('Reservation Bot API');
+})
+
+app.use('/api', routes);
