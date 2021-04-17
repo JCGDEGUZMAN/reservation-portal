@@ -1,10 +1,11 @@
 import React from 'react';
+import './App.scss';
+
+import ReservationForm from './components/reservationForm';
 
 const App = () => {
     return(
-        <div>
-            <h1>Hello MERN stack!</h1>
-        </div>
+        <ReservationForm/>
     );
 }
 
