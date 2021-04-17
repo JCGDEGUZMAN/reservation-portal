@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.scss';
 
-import ReservationForm from './components/reservationForm';
+import Reservation from './pages/reservation';
 
 const App = () => {
     return(
-        <ReservationForm/>
+        <Reservation/>
     );
 }
 
