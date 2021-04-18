@@ -2,11 +2,16 @@ import expressGroup from 'express-group-routes';
 import  express from 'express';
 
 import reservationRouter from './reservationRouter.js';
+import chatbotRouter from './chatbotRouter.js';
 
-const router = express.Router();
+export const apiRouter = express.Router();
 
-router.group(router => {
+apiRouter.group(router => {
     router.use(reservationRouter)
 });
 
-export default router;
+export const webhookRouter = express.Router();
+
+webhookRouter.group(router => {
+    router.use(chatbotRouter)
+});

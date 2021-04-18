@@ -2,7 +2,7 @@ import  express from 'express';
 import  cors from 'cors';
 
 import dbconnect from './database/connection.js';
-import routes from './routes/router.js';
+import { apiRouter, webhookRouter } from './routes/router.js';
 
 const app = express();
 
@@ -28,7 +28,8 @@ dbconnect
 
 //API ROUTES
 app.get('/', (req, res) => {
-    res.send('Reservation Bot API');
+    res.send('Reservation Portal API & Webhooks');
 })
 
-app.use('/api', routes);
+app.use('/api', apiRouter);
+app.use('/webhook', webhookRouter);
