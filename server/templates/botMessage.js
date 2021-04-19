@@ -11,7 +11,7 @@ const message = {
         {
           "title" : `Hello, I am ${BOT_NAME}.`,
           "image_url" :  `${API_URL}/images/booky.jpg`,
-          "subtitle" : `a ${PAGE_NAME} Bot. How can I help you?`,
+          "subtitle" : `A ${PAGE_NAME} Bot. How can I help you?`,
           "buttons" : [
               {
                   "type": "postback",
