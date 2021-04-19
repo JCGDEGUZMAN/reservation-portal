@@ -1,4 +1,5 @@
-const API_URL = process.env.API_URL;
+const SERVER_URL = process.env.SERVER_URL;
+const CLIENT_URL = process.env.CLIENT_URL;
 const BOT_NAME = process.env.BOT_NAME;
 const PAGE_NAME = process.env.PAGE_NAME;
 
@@ -10,13 +11,15 @@ const message = {
       "elements" : [
         {
           "title" : `Hello, I am ${BOT_NAME}.`,
-          "image_url" :  `${API_URL}/images/booky.jpg`,
+          "image_url" :  `${SERVER_URL}/images/booky.jpg`,
           "subtitle" : `A ${PAGE_NAME} Bot. How can I help you?`,
           "buttons" : [
               {
-                  "type": "postback",
+                  "type": "web_url",
                   "title": "BOOK NOW!",
-                  "payload": 1,
+                  "url": `${CLIENT_URL}`,
+                  "messenger_extensions": true,
+                  "webview_height_ratio": "TALL"
               },
               {
                   "type": "postback",
