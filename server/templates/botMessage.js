@@ -19,7 +19,8 @@ const message = {
                   "title": "BOOK NOW!",
                   "url": `${CLIENT_URL}`,
                   "messenger_extensions": true,
-                  "webview_height_ratio": "TALL"
+                  "webview_height_ratio": "TALL",
+                  "webview_share_button": "hide",
               },
               {
                   "type": "postback",
