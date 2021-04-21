@@ -23,7 +23,7 @@ const botMessage = async ({sender_psid}) => {
                   {
                       "type": "web_url",
                       "title": "BOOK NOW!",
-                      "url": `${CLIENT_URL}`,
+                      "url": `${CLIENT_URL}/reservation/${sender_psid}`,
                       "messenger_extensions": true,
                       "webview_height_ratio": "TALL",
                       "webview_share_button": "hide",

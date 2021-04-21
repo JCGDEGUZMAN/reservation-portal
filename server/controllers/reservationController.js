@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import Reservation from '../models/reservation.js';
+import { sendAPI } from '../services/api.js';
+import roomDetails from '../templates/roomDetails.js';
 
 export const list = async (reg, res) => {
     try {
@@ -13,11 +15,18 @@ export const list = async (reg, res) => {
 
 export const store = async (req, res) => {
     const reservation = req.body;
+
+    const response = {
+        fullName: reservation.fullName,
+        bedNumber: reservation.bedNumber,
+        noOfDays: reservation.noOfDays
+    }
     
     const newReservation = new Reservation(reservation);
 
     try {
         await newReservation.save();
+        await sendAPI(sender_psid, response); 
 
         res.status(201).json(newReservation);
     } catch (error) {

@@ -29,12 +29,13 @@ const ReservationForm = (props) => {
             fullName: values.fullName,
             bedNumber: values.bedNumber,
             dateFrom: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
-            dateTo: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
+            dateTo: moment(values.dateTo).format('YYYY-MM-DD hh:mm:ss'),
+            noOfDays:  moment(values.dateTo).diff(moment(values.dateFrom), 'days'),
             validId: values.validId.file.thumbUrl,
             psId: psid,
             messengerId: '1234567890'
         }
-    
+  
         await props.onSubmitReservation(reservation);
     };
 
