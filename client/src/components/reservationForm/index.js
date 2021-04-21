@@ -1,5 +1,6 @@
 import React, { useState, useEffect  } from 'react';
 import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import moment from 'moment';
 import './index.scss';
 
@@ -12,6 +13,8 @@ const { Option } = Select;
 const ReservationForm = (props) => {
     const formRef = React.createRef();
     const [canSubmit, setCanSubmit] = useState(true);
+
+    const { messengerId } = useParams();
 
     useEffect(() => {
         if(props.reservationSuccess){
@@ -28,7 +31,7 @@ const ReservationForm = (props) => {
             dateFrom: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
             dateTo: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
             validId: values.validId.file.thumbUrl,
-            messengerId: '1234567'
+            messengerId: messengerId
         }
     
         await props.onSubmitReservation(reservation);

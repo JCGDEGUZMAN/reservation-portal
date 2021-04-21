@@ -7,7 +7,7 @@ import Reservation from './reservation';
 
 const routes = [
     {
-        path:'/reservation',
+        path:'/reservation/:messengerId',
         exact: true,
         component: Reservation
     },
