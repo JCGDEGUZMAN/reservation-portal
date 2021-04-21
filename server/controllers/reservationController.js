@@ -18,7 +18,7 @@ export const store = async (req, res) => {
 
     const sender_psid = reservation.psId;
 
-    const response = roomDetails({
+    const responses = roomDetails({
         fullName: reservation.fullName,
         bedNumber: reservation.bedNumber,
         noOfDays: reservation.noOfDays
@@ -28,7 +28,11 @@ export const store = async (req, res) => {
 
     try {
         await newReservation.save();
-        await sendAPI(sender_psid, response); 
+
+        for(let i=0; i<responses.length; i++)
+        {
+            await sendAPI(sender_psid, responses[i]);
+        }
 
         res.status(201).json(newReservation);
     } catch (error) {
