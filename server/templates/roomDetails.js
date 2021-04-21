@@ -16,7 +16,7 @@ const roomDetails = ({ fullName, bedNumber, noOfDays }) => {
                     "buttons" : [
                         {
                             "type": "web_url",
-                            "title": "CHECK STATUS",
+                            "title": "VIEW DETAILS",
                             "url": `${CLIENT_URL}`,
                             "messenger_extensions": true,
                             "webview_height_ratio": "TALL",

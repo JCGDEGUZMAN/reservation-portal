@@ -15,13 +15,36 @@ const ReservationForm = (props) => {
     const [canSubmit, setCanSubmit] = useState(true);
 
     const { psid } = useParams();
+    const { reservationLoading, reservationSuccess } = props;
 
     useEffect(() => {
-        if(props.reservationSuccess){
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'Messenger'));
+
+        window.extAsyncInit = function() {
+        // the Messenger Extensions JS SDK is done loading 
+        };
+
+        if(reservationSuccess){
             formRef.current.resetFields();
+            handleWebviewClose();
         }
     }, [props,formRef])
     
+    const handleWebviewClose = () => {
+        window.MessengerExtensions.requestCloseBrowser(function success() {
+          // webview closed
+          console.log('messenger_extention_success')
+        }, function error(err) {
+          // an error occurred
+          console.log('messenger_extention_error', err)
+        });
+    }
 
     const onFinish = async (values) => {
 
@@ -138,7 +161,7 @@ const ReservationForm = (props) => {
                             htmlType="submit" 
                             className="reservation-form-button"
                             block
-                            loading={!canSubmit}
+                            loading={!canSubmit || reservationLoading}
                         >
                             BOOK NOW
                         </Button>

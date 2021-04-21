@@ -18,11 +18,11 @@ export const store = async (req, res) => {
 
     const sender_psid = reservation.psId;
 
-    const response = {
+    const response = roomDetails({
         fullName: reservation.fullName,
         bedNumber: reservation.bedNumber,
         noOfDays: reservation.noOfDays
-    }
+    })
     
     const newReservation = new Reservation(reservation);
 
