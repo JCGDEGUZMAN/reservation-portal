@@ -17,7 +17,7 @@ export const post = (req, res) => {
 
          // Get the sender PSID
         let sender_psid = webhook_event.sender.id;
-        console.log("webhook_event.sender: ", webhook_event.sender)
+
         // Check if the event is a message or postback and
         // pass the event to the appropriate handler function
         if (webhook_event.message) {
