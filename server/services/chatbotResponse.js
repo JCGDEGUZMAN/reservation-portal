@@ -1,6 +1,5 @@
 import { sendAPI, userProfile } from './api.js';
 import botMessage from '../templates/botMessage.js';
-import roomDetails from '../templates/roomDetails.js';
 
 // Handles messages events
 export const handleMessage = async (sender_psid, received_message) => {

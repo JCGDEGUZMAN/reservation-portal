@@ -30,13 +30,8 @@ const botMessage = async ({sender_psid}) => {
                   },
                   {
                       "type": "postback",
-                      "title": "GO TO WEBSITE",
-                      "payload": 2,
-                  },
-                  {
-                      "type": "postback",
                       "title": "TALK TO AGENT",
-                      "payload": 3,
+                      "payload": 1,
                   },
               ]
             }
