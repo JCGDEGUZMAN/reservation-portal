@@ -16,6 +16,8 @@ export const list = async (reg, res) => {
 export const store = async (req, res) => {
     const reservation = req.body;
 
+    const sender_psid = reservation.psId;
+
     const response = {
         fullName: reservation.fullName,
         bedNumber: reservation.bedNumber,
