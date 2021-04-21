@@ -13,7 +13,7 @@ export const list = async (reg, res) => {
 
 export const store = async (req, res) => {
     const reservation = req.body;
-
+    
     const newReservation = new Reservation(reservation);
 
     try {

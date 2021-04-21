@@ -14,7 +14,7 @@ const ReservationForm = (props) => {
     const formRef = React.createRef();
     const [canSubmit, setCanSubmit] = useState(true);
 
-    const { messengerId } = useParams();
+    const { psid } = useParams();
 
     useEffect(() => {
         if(props.reservationSuccess){
@@ -31,7 +31,8 @@ const ReservationForm = (props) => {
             dateFrom: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
             dateTo: moment(values.dateFrom).format('YYYY-MM-DD hh:mm:ss'),
             validId: values.validId.file.thumbUrl,
-            messengerId: messengerId
+            psId: psid,
+            messengerId: '1234567890'
         }
     
         await props.onSubmitReservation(reservation);

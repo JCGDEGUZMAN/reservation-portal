@@ -1,10 +1,10 @@
-import { sendAPI, userProfile } from './api.js';
+import { sendAPI } from './api.js';
 import botMessage from '../templates/botMessage.js';
 
 // Handles messages events
 export const handleMessage = async (sender_psid, received_message) => {
     let response;
-
+    
     // Check if the message contains text
     if (received_message.text) {    
       // Create the payload for a basic text message

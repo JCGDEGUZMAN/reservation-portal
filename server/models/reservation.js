@@ -6,6 +6,10 @@ const reservationSchema = mongoose.Schema({
     dateFrom: Date,
     dateTo: Date,
     validId: String,
+    psId: {
+        type: String,
+        default: null
+    },
     messengerId: {
         type: String,
         default: null
