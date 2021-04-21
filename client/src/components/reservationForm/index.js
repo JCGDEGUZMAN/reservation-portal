@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import './index.scss';
 
-import { Form, Input, Button, Row, Col, InputNumber, DatePicker, Upload } from 'antd';
+import { Form, Input, Button, Row, Col, DatePicker, Upload, Select } from 'antd';
 
 import { submitReservation } from '../../actions';
+
+const { Option } = Select;
 
 const ReservationForm = (props) => {
     const formRef = React.createRef();
@@ -15,7 +17,7 @@ const ReservationForm = (props) => {
         if(props.reservationSuccess){
             formRef.current.resetFields();
         }
-    }, [props])
+    }, [props,formRef])
     
 
     const onFinish = async (values) => {
@@ -70,10 +72,13 @@ const ReservationForm = (props) => {
                             message: 'Please fill out this field!',
                         }]}
                     >
-                        <InputNumber 
-                            min={1} 
-                            style={{ width: '100%' }}
-                        />
+                        <Select defaultValue={1} style={{ width: '100%' }}>
+                            <Option value={1}>1</Option>
+                            <Option value={2}>2</Option>
+                            <Option value={3}>3</Option>
+                            <Option value={4}>4</Option>
+                            <Option value={5}>5</Option>
+                        </Select>
                     </Form.Item>
                     <Row gutter={16}>
                         <Col xs={24} sm={24} md={12} lg={12}>
