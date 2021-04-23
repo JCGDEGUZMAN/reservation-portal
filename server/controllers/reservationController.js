@@ -17,17 +17,19 @@ export const store = async (req, res) => {
     const reservation = req.body;
 
     const sender_psid = reservation.psId;
-
-    const responses = roomDetails({
-        fullName: reservation.fullName,
-        bedNumber: reservation.bedNumber,
-        noOfDays: reservation.noOfDays
-    })
     
     const newReservation = new Reservation(reservation);
 
     try {
-        await newReservation.save();
+        const { _id } = await newReservation.save();
+
+        const responses = roomDetails({
+            fullName: reservation.fullName,
+            bedNumber: reservation.bedNumber,
+            noOfDays: reservation.noOfDays,
+            senderPsid: sender_psid,
+            reservationId: _id
+        })
 
         for(let i=0; i<responses.length; i++)
         {

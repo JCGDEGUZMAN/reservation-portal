@@ -1,7 +1,7 @@
 const SERVER_URL = process.env.SERVER_URL;
 const CLIENT_URL = process.env.CLIENT_URL;
 
-const roomDetails = ({ fullName, bedNumber, noOfDays }) => {
+const roomDetails = ({ fullName, bedNumber, noOfDays, senderPsid, reservationId }) => {
     return([
       {
         "text": "Your reservation is successful! Please see the details and payment instructions below. Thank you and Have a great day ahead!"
@@ -20,7 +20,7 @@ const roomDetails = ({ fullName, bedNumber, noOfDays }) => {
                     {
                         "type": "web_url",
                         "title": "VIEW DETAILS",
-                        "url": `${CLIENT_URL}`,
+                        "url": `${CLIENT_URL}/room-details/${senderPsid}/${reservationId}`,
                         "messenger_extensions": true,
                         "webview_height_ratio": "TALL",
                         "webview_share_button": "hide",
