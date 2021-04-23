@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 
-import { submitReservation } from './reducer.js';
+import { submitReservation, updateReservation } from './reducer.js';
 
 const rootReducer = combineReducers({
     submitReservation,
+    updateReservation,
 })
 
 export default rootReducer;

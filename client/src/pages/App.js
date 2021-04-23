@@ -4,12 +4,18 @@ import { withRouter } from "react-router-dom";
 
 import Router from './router';
 import Reservation from './reservation';
+import RoomDetails from './roomDetails';
 
 const routes = [
     {
         path:'/reservation/:psid',
         exact: true,
         component: Reservation
+    },
+    {
+        path:'/room-details/:psid/:id',
+        exact: true,
+        component: RoomDetails
     },
 ];
 

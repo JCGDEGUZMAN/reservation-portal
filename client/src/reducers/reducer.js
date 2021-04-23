@@ -2,6 +2,9 @@ import {
     POST_RESERVATION,
     POST_RESERVATION_FULFILLED,
     POST_RESERVATION_REJECTED,
+    PUT_PAYMENT,
+    PUT_PAYMENT_FULFILLED,
+    PUT_PAYMENT_REJECTED
 } from '../actions';
 
 export function submitReservation(state = {
@@ -30,6 +33,40 @@ export function submitReservation(state = {
                 ...state,
                 reservationLoading: false,
                 reservationFailed: true
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+}
+
+export function updateReservation(state = {
+    paymentLoading: false,
+    paymentSuccess: false,
+    paymentFailed: false,
+    paymentList: []
+}, action) {
+    switch(action.type){
+        case PUT_PAYMENT:
+            return {
+                ...state,
+                paymentLoading: true,
+                paymentSuccess: false,
+                paymentFailed: false
+            }
+        case PUT_PAYMENT_FULFILLED:
+            return {
+                ...state,
+                paymentLoading: false,
+                paymentSuccess: true,
+                paymentList: action.payload
+            }
+        case PUT_PAYMENT_REJECTED:
+            return {
+                ...state,
+                paymentLoading: false,
+                paymentFailed: true
             }
         default:
             return {
