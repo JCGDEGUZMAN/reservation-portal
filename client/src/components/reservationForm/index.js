@@ -34,7 +34,7 @@ const ReservationForm = (props) => {
             formRef.current.resetFields();
             handleWebviewClose();
         }
-    }, [props,formRef])
+    }, [props,formRef,reservationSuccess])
     
     const handleWebviewClose = () => {
         window.MessengerExtensions.requestCloseBrowser(function success() {

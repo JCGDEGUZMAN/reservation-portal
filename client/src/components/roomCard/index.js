@@ -7,15 +7,29 @@ import './index.scss';
 import { Button, Row, Col, Upload, Card, Tag } from 'antd';
 import { UploadOutlined, SaveOutlined } from '@ant-design/icons';
 
-import { updateReservation } from '../../actions';
+import { updateReservation, loadReservation } from '../../actions';
 
 const { Meta } = Card;
 
 const RoomCard = (props) => {
     const [canSubmit, setCanSubmit] = useState(false);
+    const [reservation, setReservation] = useState({});
 
     const { psid, id } = useParams();
-    const { room, price, isReserved, cover, description, guestInfo, paymentInfo, onUpdateReservation } = props;
+
+    const { room, 
+            price, 
+            cover, 
+            description,  
+            paymentInfo, 
+            onUpdateReservation, 
+            onLoadReservation, 
+            reservationList 
+    } = props;
+
+    const getReservation = async() =>{
+        await onLoadReservation(id);
+    }
 
     useEffect(() => {
         (function(d, s, id){
@@ -29,7 +43,14 @@ const RoomCard = (props) => {
         window.extAsyncInit = function() {
         // the Messenger Extensions JS SDK is done loading 
         };
-    }, [props])
+
+        getReservation();
+        
+    }, [])
+
+    useEffect(() => {
+        setReservation(reservationList)
+    }, [reservationList])
     
     const handleWebviewClose = () => {
         window.MessengerExtensions.requestCloseBrowser(function success() {
@@ -57,6 +78,8 @@ const RoomCard = (props) => {
         setCanSubmit(fileList.length);
     }
 
+    const { status, fullName, dateFrom, dateTo } = reservation;
+
     return(
         <Row align='middle' justify='center'>
             <Col xs={24} sm={24} md={24} lg={8}>
@@ -70,7 +93,7 @@ const RoomCard = (props) => {
                         />
                     }
                     actions={[
-                        <Row gutter={24} justify='space-between' align='top'>
+                        <Row gutter={24} justify='space-between' align='top' className={status ? 'hide': ''}>
                             <Col span={12}>
                                 <Upload
                                     action = 'https://www.mocky.io/v2/5cc8019d300000980a055e76'
@@ -114,8 +137,8 @@ const RoomCard = (props) => {
                                     {description}
                                 </Col>
                                 <Col>
-                                    <Tag color="#e91010">
-                                        {isReserved}
+                                    <Tag color={status ? "#60b427" : "#e91010"}>
+                                        {status ? "RESERVED" : "PENDING"}
                                     </Tag>
                                 </Col>
                             </Row>
@@ -124,18 +147,23 @@ const RoomCard = (props) => {
                     <hr className='horizontal-rule'/>
                     <Row className="guest-info">
                         <Col span={24}>
-                            <div><span>Guest: </span>{guestInfo.fullName}</div>
-                            <div><span>Date From: </span>{moment(guestInfo.dateFrom).format('MMMM D, Y')}</div>
-                            <div><span>Date To: </span>{moment(guestInfo.dateTo).format('MMMM D, Y')}</div>
-                            <div><span>No. of Days: </span>{moment(guestInfo.dateTo).diff(moment(guestInfo.dateFrom), 'days')}</div>
+                            <div><span>Guest: </span>{fullName}</div>
+                            <div><span>Date From: </span>{moment(dateFrom).format('MMMM D, Y')}</div>
+                            <div><span>Date To: </span>{moment(dateTo).format('MMMM D, Y')}</div>
+                            <div><span>No. of Days: </span>{moment(dateTo).diff(moment(dateFrom), 'days')}</div>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className={status ? 'reserved-message' : 'hide'}>
+                        <Col>
+                            <p>Your booking is now reserved! We will wait you on {moment(dateFrom).format('MMMM D, Y - dddd')}. Please bring the same id you upload on your reservation details.</p>
+                        </Col>
+                    </Row>
+                    <Row className={status ? 'hide' : 'payment-instruction'}>
                         <Col>
                             <p>Please deposit your payment on any account indicated below, then upload your proof of payment.</p>
                         </Col>
                     </Row>
-                    <Row className="payment-info">
+                    <Row className={status ? 'hide' : 'payment-info'}>
                         <Col span={24}>
                             <div><span>BDO: </span>{paymentInfo.bdo}</div>
                             <div><span>Metrobank: </span>{paymentInfo.metroBank}</div>
@@ -155,12 +183,17 @@ function mapStateToProps(state) {
         paymentLoading: state.updateReservation.paymentLoading,
         paymentSuccess: state.updateReservation.paymentSuccess,
         paymentFailed: state.updateReservation.paymentFailed,
+        reservationList: state.loadReservation.reservationList,
+        reservationLoading: state.loadReservation.reservationLoading,
+        reservationSuccess: state.loadReservation.reservationSuccess,
+        reservationFailed: state.loadReservation.reservationFailed,
     }
 }
   
 function mapDispatchToProps(dispatch) {
     return {
         onUpdateReservation:(id,data) => dispatch(updateReservation(id,data)),
+        onLoadReservation: (id) => dispatch(loadReservation(id)),
     }
 }
   

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './index.scss';
 
 import { Row, Col } from 'antd';
@@ -14,16 +14,10 @@ const RoomDetails = (props) => {
         >
             <Col className='room-details-content'>
                 <RoomCard 
-                    cover={"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"}
+                    cover={"https://api-reservation-bot.herokuapp.com/images/room.jpg"}
                     room={"ROOM 05 - 5TH FLOOR"}
                     description={"Modern Contemporary Room"}
                     price={'5,000'}
-                    isReserved={'PENDING'}
-                    guestInfo={{
-                        fullName: "Julius G. De Guzman",
-                        dateFrom: '2021-03-30 00:00:00',
-                        dateTo: '2021-03-31 00:00:00',
-                    }}
                     paymentInfo ={{
                         bdo: '1234567890',
                         metroBank: '0987654321',

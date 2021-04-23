@@ -4,7 +4,10 @@ import {
     POST_RESERVATION_REJECTED,
     PUT_PAYMENT,
     PUT_PAYMENT_FULFILLED,
-    PUT_PAYMENT_REJECTED
+    PUT_PAYMENT_REJECTED,
+    GET_RESERVATION,
+    GET_RESERVATION_FULFILLED,
+    GET_RESERVATION_REJECTED
 } from '../actions';
 
 export function submitReservation(state = {
@@ -67,6 +70,40 @@ export function updateReservation(state = {
                 ...state,
                 paymentLoading: false,
                 paymentFailed: true
+            }
+        default:
+            return {
+                ...state
+            }
+    }
+}
+
+export function loadReservation(state = {
+    reservationLoading: false,
+    reservationSuccess: false,
+    reservationFailed: false,
+    reservationList: {}
+}, action) {
+    switch(action.type){
+        case GET_RESERVATION:
+            return {
+                ...state,
+                reservationLoading: true,
+                reservationSuccess: false,
+                reservationFailed: false
+            }
+        case GET_RESERVATION_FULFILLED:
+            return {
+                ...state,
+                reservationLoading: false,
+                reservationSuccess: true,
+                reservationList: action.payload
+            }
+        case GET_RESERVATION_REJECTED:
+            return {
+                ...state,
+                reservationLoading: false,
+                reservationFailed: true
             }
         default:
             return {

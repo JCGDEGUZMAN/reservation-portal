@@ -76,3 +76,20 @@ export const destroy = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+
+export const view = async (req, res) => {
+    const { id } = req.params;
+
+    if(!mongoose.Types.ObjectId.isValid(id))
+    {
+        return res.status(404).json({ message: "record id not valid!" });
+    }
+
+    try {
+        const reservation = await Reservation.findById(id);
+
+        res.status(201).json(reservation);
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+    }
+}
