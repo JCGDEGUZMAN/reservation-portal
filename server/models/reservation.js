@@ -6,6 +6,10 @@ const reservationSchema = mongoose.Schema({
     dateFrom: Date,
     dateTo: Date,
     validId: String,
+    paymentProof: {
+        type: String,
+        default: null
+    },
     psId: {
         type: String,
         default: null
@@ -16,7 +20,7 @@ const reservationSchema = mongoose.Schema({
     },
     status: {
         type: Number,
-        default: 1
+        default: 0
     },
     createdAt: {
         type: Date,

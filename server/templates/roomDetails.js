@@ -4,7 +4,7 @@ const CLIENT_URL = process.env.CLIENT_URL;
 const roomDetails = ({ fullName, bedNumber, noOfDays, senderPsid, reservationId }) => {
     return([
       {
-        "text": "Your reservation is successful! Please see the details and payment instructions below. Thank you and Have a great day ahead!"
+        "text": "Please see the details and payment instructions below. Thank you and Have a great day ahead!"
       },
       {
         "attachment": {
@@ -15,7 +15,7 @@ const roomDetails = ({ fullName, bedNumber, noOfDays, senderPsid, reservationId 
               {
                 "title" : `ROOM 01 - 3RD FLR`,
                 "image_url" :  `${SERVER_URL}/images/room.jpg`,
-                "subtitle" : `Name: ${fullName}\n\nNo. Of Beds: ${bedNumber}\n\No. Of Days: ${noOfDays}`,
+                // "subtitle" : `Name: ${fullName}\n\nNo. Of Beds: ${bedNumber}\n\No. Of Days: ${noOfDays}`,
                 "buttons" : [
                     {
                         "type": "web_url",

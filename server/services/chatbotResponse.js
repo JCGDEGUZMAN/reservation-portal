@@ -24,6 +24,12 @@ export const handlePostback = async(sender_psid, received_postback) => {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
+    if(payload == 1)
+    {
+      response = { 
+        "text": "Boss is currently offline, please wait for a while. Thank you!"
+      }
+    }
 
     // Send the message to acknowledge the postback
     await sendAPI(sender_psid, response);
