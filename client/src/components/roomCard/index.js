@@ -78,7 +78,7 @@ const RoomCard = (props) => {
         setCanSubmit(fileList.length);
     }
 
-    const { status, fullName, dateFrom, dateTo } = reservation;
+    const { status, fullName, dateFrom, dateTo, bedNumber } = reservation;
 
     return(
         <Row align='middle' justify='center'>
@@ -151,6 +151,7 @@ const RoomCard = (props) => {
                             <div><span>Date From: </span>{moment(dateFrom).format('MMMM D, Y')}</div>
                             <div><span>Date To: </span>{moment(dateTo).format('MMMM D, Y')}</div>
                             <div><span>No. of Days: </span>{moment(dateTo).diff(moment(dateFrom), 'days')}</div>
+                            <div><span>No. of Bed: </span>{bedNumber}</div>
                         </Col>
                     </Row>
                     <Row className={status ? 'reserved-message' : 'hide'}>
