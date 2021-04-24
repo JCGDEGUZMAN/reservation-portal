@@ -14,6 +14,7 @@ const { Meta } = Card;
 const RoomCard = (props) => {
     const [canSubmit, setCanSubmit] = useState(false);
     const [reservation, setReservation] = useState({});
+    const [payment, setPayment] = useState("");
 
     const { psid, id } = useParams();
 
@@ -24,7 +25,6 @@ const RoomCard = (props) => {
             paymentInfo, 
             onUpdateReservation, 
             onLoadReservation, 
-            reservationList 
     } = props;
 
     const getReservation = async() =>{
@@ -41,7 +41,7 @@ const RoomCard = (props) => {
         }(document, 'script', 'Messenger'));
 
         window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading 
+            // the Messenger Extensions JS SDK is done loading 
         };
 
         getReservation();
@@ -49,8 +49,13 @@ const RoomCard = (props) => {
     }, [])
 
     useEffect(() => {
-        setReservation(reservationList)
-    }, [reservationList])
+        setReservation(props.reservationList)
+
+        if(props.reservationSuccess)
+        {
+            handleWebviewClose();
+        }
+    }, [props])
     
     const handleWebviewClose = () => {
         window.MessengerExtensions.requestCloseBrowser(function success() {
@@ -64,21 +69,23 @@ const RoomCard = (props) => {
 
     const onFinish = async () => {
 
-        // const reservation = {
-        //     psId: psid,
-        //     paymentProof: 
-        // }
-
-        // await onUpdateReservation(id, reservation);
-
-        handleWebviewClose();
+        const reservation = {
+            psId: psid,
+            paymentProof: payment.thumbUrl
+        }
+     
+        await onUpdateReservation(id, reservation);
     };
 
     const uploadTriggered = ({file, fileList}) => {
         setCanSubmit(fileList.length);
+
+        if (file.status !== 'uploading') {
+            setPayment(file)
+        }
     }
 
-    const { status, fullName, dateFrom, dateTo, bedNumber } = reservation;
+    const { status, fullName, dateFrom, dateTo, bedNumber, paymentProof } = reservation;
 
     return(
         <Row align='middle' justify='center'>
@@ -93,11 +100,11 @@ const RoomCard = (props) => {
                         />
                     }
                     actions={[
-                        <Row gutter={24} justify='space-between' align='top' className={status ? 'hide': ''}>
+                        <Row gutter={24} justify='space-between' align='top' className={paymentProof && paymentProof.length ? 'hide': ''}>
                             <Col span={12}>
                                 <Upload
                                     action = 'https://www.mocky.io/v2/5cc8019d300000980a055e76'
-                                    listType = 'text'
+                                    listType = 'picture'
                                     maxCount = {1}
                                     onChange = {(object) => uploadTriggered(object)}
                                 >
@@ -112,7 +119,7 @@ const RoomCard = (props) => {
                                 <Button
                                     className={canSubmit ? 'save-button' : 'hide'}
                                     icon={<SaveOutlined />}
-                                    onClick={() => onFinish}
+                                    onClick={() => onFinish()}
                                 >
                                     Save
                                 </Button>
@@ -154,22 +161,38 @@ const RoomCard = (props) => {
                             <div><span>No. of Bed: </span>{bedNumber}</div>
                         </Col>
                     </Row>
-                    <Row className={status ? 'reserved-message' : 'hide'}>
+                    <Row className={!status && paymentProof && paymentProof.length ? 'pending-message' : 'hide'}>
+                        <Col>
+                            <p>We will just validate your payment and process your booking. You will received a message once done. Thank you!</p>
+                        </Col>
+                    </Row>
+                    <Row className={status && paymentProof && paymentProof.length ? 'reserved-message' : 'hide'}>
                         <Col>
                             <p>Your booking is now reserved! We will wait you on {moment(dateFrom).format('MMMM D, Y - dddd')}. Please bring the same id you upload on your reservation details.</p>
                         </Col>
                     </Row>
-                    <Row className={status ? 'hide' : 'payment-instruction'}>
+                    <Row className={status || paymentProof && paymentProof.length ? 'hide' : 'payment-instruction'}>
                         <Col>
-                            <p>Please deposit your payment on any account indicated below, then upload your proof of payment.</p>
+                            <p>Please deposit your payment on any account indicated below within 24 hrs then upload your proof of payment, else this booking will be invalid.</p>
                         </Col>
                     </Row>
-                    <Row className={status ? 'hide' : 'payment-info'}>
+                    <Row className={status || paymentProof && paymentProof.length ? 'hide' : 'payment-info'}>
                         <Col span={24}>
                             <div><span>BDO: </span>{paymentInfo.bdo}</div>
                             <div><span>Metrobank: </span>{paymentInfo.metroBank}</div>
                             <div><span>Security Bank: </span>{paymentInfo.securityBank}</div>
                             <div><span>G-Cash: </span>{paymentInfo.gcash}</div>
+                        </Col>
+                    </Row>
+                    <Row justify='center' align='middle'>
+                        <Col span={12}>
+                            <Button
+                                type='primary'
+                                className={status || paymentProof && paymentProof.length ? 'ok-button' : 'hide'}
+                                onClick={() => handleWebviewClose()}
+                            >
+                                OK
+                            </Button>
                         </Col>
                     </Row>
                 </Card>

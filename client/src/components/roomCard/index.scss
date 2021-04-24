@@ -32,6 +32,24 @@
         background-color: #60b427;
         color: #fff;
     }
+
+    .ok-button {
+        width: 100%;
+    }
+
+    .ant-upload-list-item-name {
+        flex: none;
+        position: absolute;
+        text-align: center;
+    }
+
+    .ant-upload-list-picture-container {
+        width: 200%;
+    }
+
+    .ant-upload-list-item-card-actions.picture .ant-upload-list-item-card-actions-btn {
+        margin-left: 10px;
+    }
 }
 
 .hide {
