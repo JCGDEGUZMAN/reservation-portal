@@ -25,6 +25,7 @@ const RoomCard = (props) => {
             paymentInfo, 
             onUpdateReservation, 
             onLoadReservation, 
+            paymentLoading
     } = props;
 
     const getReservation = async() =>{
@@ -120,6 +121,7 @@ const RoomCard = (props) => {
                                     className={canSubmit ? 'save-button' : 'hide'}
                                     icon={<SaveOutlined />}
                                     onClick={() => onFinish()}
+                                    loading={paymentLoading}
                                 >
                                     Save
                                 </Button>
