@@ -50,8 +50,8 @@ const RoomCard = (props) => {
 
     useEffect(() => {
         setReservation(props.reservationList)
-
-        if(props.reservationSuccess)
+ 
+        if(props.paymentSuccess)
         {
             handleWebviewClose();
         }
