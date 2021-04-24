@@ -43,6 +43,10 @@ export const store = async (req, res) => {
 }
 
 export const modify = async (req, res) => {
+    let response = { 
+        "text": "We will just validate your payment and process your booking. You will received a message once done. Thank you!"
+    }
+
     const { id } = req.params;
     const reservation = req.body;
 
@@ -53,6 +57,11 @@ export const modify = async (req, res) => {
 
     try {
         const updatedReservation = await Reservation.findByIdAndUpdate(id, reservation, { new: true });
+        console.log("reservation: ", reservation)
+        if(reservation.psId)
+        {
+            await sendAPI(reservation.psId, response);
+        }
 
         res.status(201).json(updatedReservation);
     } catch (error) {
