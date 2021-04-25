@@ -86,6 +86,51 @@ const RoomCard = (props) => {
         }
     }
 
+    const statusDisplay = (status, paymentProof, dateFrom) => {
+        if(status && paymentProof && paymentProof.length)
+        {
+            return(
+                <Row className='reserved-message'>
+                    <Col>
+                        <p>Your booking is now reserved! We will wait you on {moment(dateFrom).format('MMMM D, Y - dddd')}. Please bring the same id you upload on your reservation details.</p>
+                    </Col>
+                </Row>
+            );
+        }
+
+        if(!status && paymentProof && paymentProof.length)
+        {
+            return(
+                <Row className='pending-message'>
+                    <Col>
+                        <p>We will just validate your payment and process your booking. You will received a message once done. Thank you!</p>
+                    </Col>
+                </Row>
+            );
+        }
+
+        if(!status || paymentProof && !paymentProof.length)
+        {
+            return(
+                <React.Fragment>
+                    <Row className='payment-instruction'>
+                        <Col>
+                            <p>Please deposit your payment on any account indicated below within 24 hrs then upload your proof of payment, else this booking will be invalid.</p>
+                        </Col>
+                    </Row>
+                    <Row className='payment-info'>
+                        <Col span={24}>
+                            <div><span>BDO: </span>{paymentInfo.bdo}</div>
+                            <div><span>Metrobank: </span>{paymentInfo.metroBank}</div>
+                            <div><span>Security Bank: </span>{paymentInfo.securityBank}</div>
+                            <div><span>G-Cash: </span>{paymentInfo.gcash}</div>
+                        </Col>
+                    </Row>
+                </React.Fragment>
+            );
+        }
+    }
+
     const { status, fullName, dateFrom, dateTo, bedNumber, paymentProof } = reservation;
 
     return(
@@ -163,29 +208,9 @@ const RoomCard = (props) => {
                             <div><span>No. of Bed: </span>{bedNumber}</div>
                         </Col>
                     </Row>
-                    <Row className={!status && paymentProof && paymentProof.length ? 'pending-message' : 'hide'}>
-                        <Col>
-                            <p>We will just validate your payment and process your booking. You will received a message once done. Thank you!</p>
-                        </Col>
-                    </Row>
-                    <Row className={status && paymentProof && paymentProof.length ? 'reserved-message' : 'hide'}>
-                        <Col>
-                            <p>Your booking is now reserved! We will wait you on {moment(dateFrom).format('MMMM D, Y - dddd')}. Please bring the same id you upload on your reservation details.</p>
-                        </Col>
-                    </Row>
-                    <Row className={status || paymentProof && paymentProof.length ? 'hide' : 'payment-instruction'}>
-                        <Col>
-                            <p>Please deposit your payment on any account indicated below within 24 hrs then upload your proof of payment, else this booking will be invalid.</p>
-                        </Col>
-                    </Row>
-                    <Row className={status || paymentProof && paymentProof.length ? 'hide' : 'payment-info'}>
-                        <Col span={24}>
-                            <div><span>BDO: </span>{paymentInfo.bdo}</div>
-                            <div><span>Metrobank: </span>{paymentInfo.metroBank}</div>
-                            <div><span>Security Bank: </span>{paymentInfo.securityBank}</div>
-                            <div><span>G-Cash: </span>{paymentInfo.gcash}</div>
-                        </Col>
-                    </Row>
+                    {
+                        statusDisplay(status, paymentProof, dateFrom)
+                    }
                     <Row justify='center' align='middle'>
                         <Col span={12}>
                             <Button
