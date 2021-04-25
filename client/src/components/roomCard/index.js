@@ -202,8 +202,8 @@ const RoomCard = (props) => {
                     <Row className="guest-info">
                         <Col span={24}>
                             <div><span>Guest: </span>{fullName}</div>
-                            <div><span>Date From: </span>{moment(dateFrom).format('MMMM D, Y')}</div>
-                            <div><span>Date To: </span>{moment(dateTo).format('MMMM D, Y')}</div>
+                            <div><span>Check-in Date: </span>{moment(dateFrom).format('MMMM D, Y')}</div>
+                            <div><span>Check-out Date: </span>{moment(dateTo).format('MMMM D, Y')}</div>
                             <div><span>No. of Days: </span>{moment(dateTo).diff(moment(dateFrom), 'days')}</div>
                             <div><span>No. of Bed: </span>{bedNumber}</div>
                         </Col>

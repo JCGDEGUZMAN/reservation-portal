@@ -110,7 +110,7 @@ const ReservationForm = (props) => {
                     </Form.Item>
                     <Row gutter={16}>
                         <Col xs={24} sm={24} md={12} lg={12}>
-                            <h4>Date From:</h4>
+                            <h4>Check-in Date:</h4>
                             <Form.Item
                                 name="dateFrom"
                                 rules={[{   
@@ -124,7 +124,7 @@ const ReservationForm = (props) => {
                             </Form.Item>
                         </Col>
                         <Col xs={24} sm={24} md={12} lg={12}>
-                            <h4>Date To:</h4>
+                            <h4>Check-out Date:</h4>
                             <Form.Item
                                 name="dateTo"
                                 rules={[{   
