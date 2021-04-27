@@ -29,3 +29,19 @@ export const userProfile = async (sender_psid) => {
           console.log("error: ", error)
       })
 }
+
+export const initGetStarted = async () => {
+    let request_body = { 
+        "get_started":{
+          "payload":"GET_STARTED"
+        }
+    }
+
+    await axios.post(`${FBGRAPH_API}/v10.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`, request_body)
+    .then(response => {
+        console.log('get started button intialized!')
+    })
+    .catch(error => {
+        console.log("error: ", error)
+    })
+}

@@ -8,7 +8,6 @@ export const handleMessage = async (sender_psid, received_message) => {
     // Check if the message contains text
     if (received_message.text) {    
       // Create the payload for a basic text message
-      response = await botMessage({ sender_psid }); 
       
     // Sends the response message
     await sendAPI(sender_psid, response);   
@@ -24,11 +23,14 @@ export const handlePostback = async(sender_psid, received_postback) => {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
-    if(payload == 1)
-    {
-      response = { 
-        "text": "Boss is currently offline, please wait for a while. Thank you!"
-      }
+
+    switch(payload){
+      case 'GET_STARTED':
+        response = await botMessage({ sender_psid }); 
+        break;
+      case 'ASK_BOSS':
+        response = {"text": "Boss is currently offline, please wait for a while. Thank you!"}
+        break;
     }
 
     // Send the message to acknowledge the postback

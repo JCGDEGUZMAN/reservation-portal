@@ -31,7 +31,7 @@ const botMessage = async ({sender_psid}) => {
                   {
                       "type": "postback",
                       "title": "ASK MY BOSS",
-                      "payload": 1,
+                      "payload": "ASK_BOSS",
                   },
               ]
             }
