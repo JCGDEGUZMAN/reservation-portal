@@ -38,10 +38,20 @@ export const initGetStarted = async () => {
     }
 
     await axios.post(`${FBGRAPH_API}/v10.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`, request_body)
-    .then(response => {
-        console.log('get started button intialized!')
-    })
-    .catch(error => {
-        console.log("error: ", error)
-    })
+        .then(response => {
+            console.log('get started button intialized!')
+        })
+        .catch(error => {
+            console.log("error: ", error)
+        })
+}
+
+export const sendMessengerProfile = async (request_body) => {
+    await axios.post(`${FBGRAPH_API}/v10.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`, request_body)
+        .then(response => {
+            console.log('messenger profile intialized!')
+        })
+        .catch(error => {
+            console.log("error: ", error)
+        })
 }
