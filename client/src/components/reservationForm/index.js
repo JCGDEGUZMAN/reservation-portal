@@ -70,6 +70,11 @@ const ReservationForm = (props) => {
         }
     }
 
+    const disabledDate = (current) => {
+        // Can not select days before today and today
+        return current && current < moment().endOf('day');
+    }
+
     return(
         <Row align='middle' justify='center'>
             <Col xs={24} sm={24} md={24} lg={12}>
@@ -119,7 +124,8 @@ const ReservationForm = (props) => {
                                 }]}
                             >
                                 <DatePicker 
-                                style={{ width: '100%' }}
+                                    style={{ width: '100%' }}
+                                    disabledDate={disabledDate}
                                 />
                             </Form.Item>
                         </Col>
@@ -134,6 +140,7 @@ const ReservationForm = (props) => {
                             >
                                 <DatePicker 
                                     style={{ width: '100%' }}
+                                    disabledDate={disabledDate}
                                 />
                             </Form.Item>
                         </Col>
