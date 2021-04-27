@@ -14,12 +14,12 @@ app.use(cors());
 app.use(express.static('public'));
 
 app.use(express.json({ 
-    limit: "30mb", 
+    limit: "100mb", 
     extended: true 
 }));
 
 app.use(express.urlencoded({
-    limit: "30mb", 
+    limit: "100mb", 
     extended: true
 }));
 
