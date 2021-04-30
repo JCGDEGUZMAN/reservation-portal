@@ -39,7 +39,7 @@ export const handlePostback = async(sender_psid, received_postback) => {
     // Send the message to acknowledge the postback
     await sendAPI(sender_psid, response);
 
-    if(persistentMenu)
+    if(pMenu)
     {
       await sendMessengerProfile(pMenu);
     }

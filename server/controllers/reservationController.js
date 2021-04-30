@@ -57,7 +57,7 @@ export const modify = async (req, res) => {
 
     try {
         const updatedReservation = await Reservation.findByIdAndUpdate(id, reservation, { new: true });
-        console.log("reservation: ", reservation)
+
         if(reservation.psId)
         {
             await sendAPI(reservation.psId, response);

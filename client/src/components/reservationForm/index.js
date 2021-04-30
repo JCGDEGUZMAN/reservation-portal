@@ -27,7 +27,7 @@ const ReservationForm = (props) => {
         }(document, 'script', 'Messenger'));
 
         window.extAsyncInit = function() {
-        // the Messenger Extensions JS SDK is done loading 
+            console.log("Messenger Extensions JS SDK is done loading");
         };
 
         if(reservationSuccess){
